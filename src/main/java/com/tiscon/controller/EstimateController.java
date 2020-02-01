@@ -69,16 +69,24 @@ public class EstimateController {
 
     /**
      * 確認画面に遷移する。
+     * エラーがある場合、入力画面に再遷移
      *
      * @param userOrderForm 顧客が入力した見積もり依頼情報
      * @param model         遷移先に連携するデータ
      * @return 遷移先
+     * @Validated UserOrderForm userOrderForm, BindingResult result, Model model
      */
     @PostMapping(value = "submit", params = "confirm")
-    String confirm(UserOrderForm userOrderForm, Model model) {
-
+    String confirm(@Validated UserOrderForm userOrderForm, BindingResult result, Model model) {
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
+
+        if (result.hasErrors()) {
+            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
+            model.addAttribute("userOrderForm", userOrderForm);
+            return "input";
+        }
+
         return "confirm";
     }
 
@@ -119,13 +127,7 @@ public class EstimateController {
      * @return 遷移先
      */
     @PostMapping(value = "result", params = "calculation")
-    String calculation(@Validated UserOrderForm userOrderForm, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-
-            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
-            model.addAttribute("userOrderForm", userOrderForm);
-            return "confirm";
-        }
+    String calculation(@Validated UserOrderForm userOrderForm, Model model) {
 
         //料金の計算を行う。
         UserOrderDto dto = new UserOrderDto();
