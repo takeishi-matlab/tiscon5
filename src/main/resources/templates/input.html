@@ -8,6 +8,7 @@
   <link rel="stylesheet" th:href="@{http://fonts.googleapis.com/css?family=Exo:900}"
         href="http://fonts.googleapis.com/css?family=Exo:900"/>
   <link rel="stylesheet" th:href="@{/css/main.css}" href="../static/css/main.css">
+  <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
 </head>
 
 <body>
@@ -33,6 +34,11 @@
           <label for="email">連絡先メールアドレス</label>
           <input type="text" id="email" name="email" th:field="*{email}" class="form-control" value="test@test.com"/>
         </div>
+        <!-- ▼郵便番号入力フィールド(7桁) -->
+        <div class="form-group">
+          <label for="email">転居元郵便番号（半角数字7桁 ハイフン不要）</label>
+          <input type="text" name="zip01" maxlength="8" class="form-control" onKeyUp="AjaxZip3.zip2addr(this,'','oldPrefectureId','oldAddress');">
+        </div>
         <div class="form-group">
           <label for="oldPrefectureId">転居元住所（都道府県）</label>
           <select id="oldPrefectureId" name="oldPrefectureId" class="form-control">
@@ -43,6 +49,11 @@
           <label for="oldAddress">転居元住所（市区町村以下）</label>
           <input type="text" id="oldAddress" name="oldAddress" th:field="*{oldAddress}"
                  class="form-control" value="新宿区西新宿1-1-1"/>
+        </div>
+        <!-- ▼郵便番号入力フィールド(7桁) -->
+        <div class="form-group">
+          <label for="email">転居先郵便番号（半角数字7桁 ハイフン不要）</label>
+          <input type="text" name="zip01" maxlength="8" class="form-control" onKeyUp="AjaxZip3.zip2addr(this,'','newPrefectureId','newAddress');">
         </div>
         <div class="form-group">
           <label for="newPrefectureId">転居先住所（都道府県）</label>
