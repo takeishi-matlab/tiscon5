@@ -56,7 +56,7 @@ public class UserOrderForm {
     private Boolean hasWashingMachineSettingOption;
 
     @AssertTrue(message = "必要な段ボール個数は200個以下としてください")
-    public Boolean isLegalBoxQuantity(){
+    public boolean isLegalBoxQuantity(){
         try{
             if(Integer.parseInt(box)
                     +Integer.parseInt(bed)*20

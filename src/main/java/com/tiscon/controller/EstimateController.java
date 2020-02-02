@@ -12,6 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 /**
  * 引越し見積もりのコントローラークラス。
  *
@@ -83,7 +85,7 @@ public class EstimateController {
      * @Validated UserOrderForm userOrderForm, BindingResult result, Model model
      */
     @PostMapping(value = "submit", params = "confirm")
-    String confirm(@Validated UserOrderForm userOrderForm, BindingResult result, Model model) {
+    String confirm(@Validated @ModelAttribute("userOrderFrom") UserOrderForm userOrderForm, BindingResult result, Model model) {
         model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
         model.addAttribute("userOrderForm", userOrderForm);
 
