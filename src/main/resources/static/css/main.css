@@ -59,6 +59,10 @@ div.center.column {
     text-decoration: underline;
 }
 
+ul{
+    color: red;
+}
+
 ul.label {
     list-style-type: none;
 }

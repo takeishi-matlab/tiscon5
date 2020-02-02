@@ -62,14 +62,11 @@ public class UserOrderForm {
                     +Integer.parseInt(bed)*20
                     +Integer.parseInt(bicycle)*15
                     +Integer.parseInt(washingMachine)*10 <= 200){
-                System.out.println("AssertTrue");
-                return false;
+                return true;
             }else{
-                System.out.println("AssertFalse");
                 return false;
             }
         }catch (NumberFormatException e) {
-            System.out.println("AssertFalse");
             return false;
         }
     }
