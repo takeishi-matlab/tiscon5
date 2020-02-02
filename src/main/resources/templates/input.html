@@ -13,7 +13,7 @@
 <body>
 <nav th:insert="header.html :: header"></nav>
 <div class="container">
-  <form th:action="@{/submit}" th:object="${userOrderForm}" class="form-horizontal" method="post">
+  <form th:action="@{/submit}" th:object="${userOrderForm}" class="form-horizontal" name="frm" method="post">
     <h1>お見積り情報入力</h1>
     <ul th:if="${#fields.hasErrors('all')}">
       <li th:each="err : ${#fields.errors('all')}" th:text="${err}"></li>
@@ -57,26 +57,39 @@
         </div>
       </fieldset>
       <fieldset>
-        <legend>荷物情報</legend>
+        <legend>荷物情報（段ボールの数で料金が変わります）</legend>
         <div class="form-group">
           <label for="box">段ボールの個数</label>
-          <input type="text" id="box" name="box" th:field="*{box}" class="form-control" value="10"/>
+          <input type="number" id="box" name="box" th:field="*{box}" class="form-control" min="0" max="200" onchange="func1()"/>
+          <script language="JavaScript" type="text/javascript">
+          function func1(){
+            var input_box = document.getElementById("box").value;
+            var input_bed = document.getElementById("bed").value;
+            var input_bicycle = document.getElementById("bicycle").value;
+            var input_washingMachine = document.getElementById("washingMachine").value;
+
+<!--            alert(input_box);-->
+<!--            alert(input_bed);-->
+<!--            alert(input_bicycle);-->
+<!--            alert(input_washingMachine);-->
+          }
+          </script>
         </div>
         <div class="form-group">
-          <label for="bed">ベッドの個数</label>
-          <input type="text" id="bed" name="bed" th:field="*{bed}" class="form-control" value="3"/>
+          <label for="bed">ベッドの個数（ベッド1台で段ボール20個分に相当）</label>
+          <input type="number" id="bed" name="bed" th:field="*{bed}" class="form-control" value="0" min="0" max="10"/>
         </div>
         <div class="form-group">
-          <label for="bicycle">自転車の個数</label>
-          <input type="text" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="1"/>
+          <label for="bicycle">自転車の個数（段ボール15個分に相当）</label>
+          <input type="number" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="0" min="0" max="10"/>
         </div>
         <div class="form-group">
-          <label for="washingMachine">洗濯機の個数</label>
-          <input type="text" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control"
-                 value="1"/>
+          <label for="washingMachine">洗濯機の個数（段ボール10個分に相当）</label>
+          <input type="number" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control"
+                 value="0" min="0" max="10"/>
         </div>
         <div class="form-group">
-          <label for="hasWashingMachineSettingOption">洗濯機の設置工事申し込み</label>
+          <label for="hasWashingMachineSettingOption">洗濯機の設置工事申し込み（1台のみ受け付け可，料金：3,000円）</label>
           <select id="hasWashingMachineSettingOption" name="hasWashingMachineSettingOption" class="form-control" th:field="*{hasWashingMachineSettingOption}">
             <option th:value="false" th:text="なし">なし</option>
             <option th:value="true" th:text="あり">あり</option>
@@ -85,8 +98,24 @@
       </fieldset>
       <div class="form-group">
         <div class="text-center">
-          <button type="submit" name="backToTop" class="btn btn-primary">TOPへ戻る</button>
-          <button type="submit" name="confirm" class="btn btn-primary">確認</button>
+          <button type="button" onClick="func2()" name="backToTop" class="btn btn-primary">TOPへ戻る</button>
+          <script>
+            function func2(){
+              var btt = document.createElement("input");
+              btt.name = "backToTop";
+              document.frm.appendChild(btt);
+              document.frm.submit();
+            }
+          </script>
+          <button type="button" onClick="func3()" name="confirm" class="btn btn-primary">確認</button>
+          <script>
+            function func3(){
+              var conf = document.createElement("input");
+              conf.name = "confirm";
+              document.frm.appendChild(conf);
+              document.frm.submit();
+            }
+          </script>
         </div>
       </div>
     </div>

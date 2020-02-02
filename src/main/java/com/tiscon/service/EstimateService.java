@@ -87,7 +87,8 @@ public class EstimateService {
 
         // オプションサービスの料金を算出する。
         int priceForOptionalService = 0;
-
+        System.out.println(10000);
+        System.out.print(dto.hasWashingMachineSettingOption());
         if (dto.hasWashingMachineSettingOption()) {
             priceForOptionalService = estimateDAO.getPricePerOptionalService(OptionalServiceType.WASHING_MACHINE.getCode());
         }
