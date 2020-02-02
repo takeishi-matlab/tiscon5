@@ -93,18 +93,6 @@ public class EstimateController {
             return "input";
         }
 
-        // ダンボール必要個数が200個を超えていたらinput.htmlへ再遷移
-        // マジックナンバー要修正
-        // *20＝ベッド→ダンボール個数, *15=自転車→ダンボール, *10=洗濯機→ダンボール
-        if (Integer.parseInt(userOrderForm.getBox())
-                + Integer.parseInt(userOrderForm.getBed())*20
-                + Integer.parseInt(userOrderForm.getBicycle())*15
-                + Integer.parseInt(userOrderForm.getWashingMachine())*10 > 200){
-            model.addAttribute("prefectures", estimateDAO.getAllPrefectures());
-            model.addAttribute("userOrderForm", userOrderForm);
-            return "input";
-        }
-
         return "confirm";
     }
 

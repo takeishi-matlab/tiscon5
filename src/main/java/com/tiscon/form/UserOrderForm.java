@@ -5,6 +5,7 @@ import com.tiscon.validator.Numeric;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.AssertTrue;
 
 /**
  * 顧客が入力する見積もり情報を保持するクラス。
@@ -12,47 +13,66 @@ import javax.validation.constraints.NotNull;
  * @author Oikawa Yumi
  */
 public class UserOrderForm {
-    @NotBlank
+    @NotBlank(message = "名前を入力してください。")
     private String customerName;
 
-    @NotBlank
-    @Numeric
+    @NotBlank(message = "電話番号を入力してください。")
+    @Numeric(message = "電話番号を半角数字で入力してください。")
     private String tel;
 
-    @Email
-    @NotBlank
+    @Email(message = "メールアドレスの形式が正しくありません。")
+    @NotBlank(message = "メールアドレスを入力してください。")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "転居元都道府県を入力してください。")
     private String oldPrefectureId;
 
-    @NotBlank
+    @NotBlank(message = "転居元住所を入力してください。")
     private String oldAddress;
 
-    @NotBlank
+    @NotBlank(message = "転居先都道府県を入力してください。")
     private String newPrefectureId;
 
-    @NotBlank
+    @NotBlank(message = "転居先住所を入力してください。")
     private String newAddress;
 
-    @Numeric
-    @NotBlank
+    @Numeric(message = "段ボール箱必要個数を入力してください。")
+    @NotBlank(message = "段ボール箱必要個数を入力してください。")
     private String box;
 
-    @Numeric
-    @NotBlank
+    @Numeric(message = "ベッド個数を半角数字で入力してください。")
+    @NotBlank(message = "ベッド個数を入力してください。")
     private String bed;
 
-    @Numeric
-    @NotBlank
+    @Numeric(message = "自転車個数を半角数字で入力してください。")
+    @NotBlank(message = "自転車個数を半角数字で入力してください。")
     private String bicycle;
 
-    @Numeric
-    @NotBlank
+    @Numeric(message = "洗濯機個数を半角数字で入力してください。")
+    @NotBlank(message = "洗濯機個数を半角数字で入力してください。")
     private String washingMachine;
 
-    @NotNull
+    @NotNull(message = "洗濯機の設置工事の有無を選択してください。")
     private Boolean hasWashingMachineSettingOption;
+
+    @AssertTrue(message = "必要な段ボール個数は200個以下としてください")
+    public Boolean isLegalBoxQuantity(){
+        try{
+            if(Integer.parseInt(box)
+                    +Integer.parseInt(bed)*20
+                    +Integer.parseInt(bicycle)*15
+                    +Integer.parseInt(washingMachine)*10 <= 200){
+                System.out.println("AssertTrue");
+                return false;
+            }else{
+                System.out.println("AssertFalse");
+                return false;
+            }
+        }catch (NumberFormatException e) {
+            System.out.println("AssertFalse");
+            return false;
+        }
+    }
 
     public String getCustomerName() {
         return customerName;
@@ -149,4 +169,7 @@ public class UserOrderForm {
     public void setHasWashingMachineSettingOption(Boolean hasWashingMachineSettingOption) {
         this.hasWashingMachineSettingOption = hasWashingMachineSettingOption;
     }
+
+
 }
+
