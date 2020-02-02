@@ -71,33 +71,52 @@
         <legend>荷物情報（段ボールの数で料金が変わります 80個まで:¥30,000- 200個まで¥50,000-）</legend>
         <div class="form-group">
           <label for="box">段ボールの個数</label>
-          <input type="number" id="box" name="box" th:field="*{box}" class="form-control" min="0" max="200" onchange="func1()"/>
+          <input type="number" id="box" name="box" th:field="*{box}" class="form-control" min="0" max="200" onchange="func_box()"/>
           <script language="JavaScript" type="text/javascript">
-          function func1(){
+          function func_box(){
             var input_box = document.getElementById("box").value;
-            var input_bed = document.getElementById("bed").value;
-            var input_bicycle = document.getElementById("bicycle").value;
-            var input_washingMachine = document.getElementById("washingMachine").value;
-
-<!--            alert(input_box);-->
-<!--            alert(input_bed);-->
-<!--            alert(input_bicycle);-->
-<!--            alert(input_washingMachine);-->
+            if (input_box < 0 || 200 < input_box){
+              alert("段ボールの数は0から200の範囲で入力してください．");
+            }
           }
           </script>
         </div>
         <div class="form-group">
           <label for="bed">ベッドの個数（ベッド1台で段ボール20個分に相当）</label>
-          <input type="number" id="bed" name="bed" th:field="*{bed}" class="form-control" value="0" min="0" max="10"/>
+          <input type="number" id="bed" name="bed" th:field="*{bed}" class="form-control" value="0" min="0" max="10" onchange="func_bed()"/>
+          <script language="JavaScript" type="text/javascript">
+            function func_bed(){
+              var input_bed = document.getElementById("bed").value;
+              if (input_bed < 0 || 10 < input_bed){
+                alert("ベッドの数は0から10の範囲で入力してください．");
+              }
+            }
+          </script>
         </div>
         <div class="form-group">
           <label for="bicycle">自転車の個数（段ボール15個分に相当）</label>
-          <input type="number" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="0" min="0" max="10"/>
+          <input type="number" id="bicycle" name="bicycle" th:field="*{bicycle}" class="form-control" value="0" min="0" max="10" onchange="func_bicycle()"/>
+          <script language="JavaScript" type="text/javascript">
+            function func_bicycle(){
+              var input_bicycle = document.getElementById("bicycle").value;
+              if (input_bicycle < 0 || 10 < input_bicycle){
+                alert("自転車の数は0から10の範囲で入力してください．");
+              }
+            }
+          </script>
         </div>
         <div class="form-group">
           <label for="washingMachine">洗濯機の個数（段ボール10個分に相当）</label>
           <input type="number" id="washingMachine" name="washingMachine" th:field="*{washingMachine}" class="form-control"
-                 value="0" min="0" max="10"/>
+                 value="0" min="0" max="10" onchange="func_washingMachine()"/>
+          <script language="JavaScript" type="text/javascript">
+            function func_washingMachine(){
+              var input_washingMachine = document.getElementById("washingMachine").value;
+              if (input_washingMachine < 0 || 10 < input_washingMachine){
+                alert("洗濯機の数は0から10の範囲で入力してください．");
+              }
+            }
+          </script>
         </div>
         <div class="form-group">
           <label for="hasWashingMachineSettingOption">洗濯機の設置工事申し込み（1台のみ受け付け可，料金：3,000円）</label>
